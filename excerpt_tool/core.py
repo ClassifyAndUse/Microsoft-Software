@@ -1,7 +1,6 @@
 import os,sys
 def laoding():
     line = []
-    time = 0
     text = ''
     zhailu = open('./zhailu.file','r')
     for i in zhailu:
@@ -13,11 +12,12 @@ def laoding():
                 text = text + a
     zhailu.close()
     return line
-def Search(keyword,theme,source,author,the_list):
+def Search(the_list,keyword,theme,source,author):
     sentence = []
     theme = []
     source = []
     author = []
+    time = 0
     for c in the_list:
             time = time + 1
             if time == 5:
@@ -38,18 +38,30 @@ def Search(keyword,theme,source,author,the_list):
     print('[主题]'+theme[id])
     print('[出处]'+source[id])
     print('[作者]'+author[id])
-def add(the_list,):
-    zhailu1 = open('zhailu1.file','w')
+def add(sentences,themes,sources,authors):
     while True:
+        is_input = True
         sentence = input('[句子]')
-        if sentence == '':
-            zhailu1.close()
-            break
-        zhailu1.write(sentence)
-        zhailu1.write('|'+input('[主题]'))
-        zhailu1.write('|'+input('[出处]'))
-        zhailu1.write('|'+input('[作者]'))
-def save():
-    is_exit = input("是否退出[y/n]：")
-    if is_exit == 'y':
-        os.rename('zhailu1.file','zhailu.file')
+        for i in sentences:
+            if sentence == i:
+                print('[错误]句子重复')
+                is_input = False
+                break
+        theme = input('[主题]')
+        source = input('[出处]')
+        author = input('[作者]')
+        if is_input == True:
+            sentences.append(sentence)
+            themes.append(theme)
+            sources.append(source)
+            authors.append(author)
+def save(sentences,themes,sources,authors):
+    zhailu1 = open('zhailu1.file','w')
+    for i in sentences:
+        zhailu1.write(i)
+        zhailu1.write('|'+themes[sentences.index(i)])
+        zhailu1.write('|'+sources[sentences.index(i)])
+        zhailu1.write('|'+authors[sentences.index(i)]+'\n')
+    zhailu1.close()
+    os.rename('zhailu1.file','zhailu.file')
+        
