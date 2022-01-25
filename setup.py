@@ -13,7 +13,7 @@ setup(
     install_requires=[],
     entry_points={
         'console_scripts': [
-            'excerpte=excerpt_tool:__init__', # 使用者使用excerpt时,就睡到excerpt项目下的__init__.py下执行excerpt函
+            'excerpte=excerpt_tool:main', # 使用者使用excerpt时,就睡到excerpt项目下的__init__.py下执行excerpt函
         ]
     } # 重点
 )
