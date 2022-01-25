@@ -116,7 +116,7 @@ def add(the_list):
                 the_list.append(author)
             return the_list
 def save(the_list):
-    zhailu1 = open('zhailu1.file','w')
+    zhailu = open('zhailu.file','w')
     sentences = []
     themes = []
     sources = []
@@ -135,12 +135,11 @@ def save(the_list):
         elif time == 4:
             authors.append(i)
     for i in sentences:
-        zhailu1.write(i)
-        zhailu1.write('|'+themes[sentences.index(i)])
-        zhailu1.write('|'+sources[sentences.index(i)])
-        zhailu1.write('|'+authors[sentences.index(i)]+'\n')
-    zhailu1.close()
-    os.rename('zhailu1.file','zhailu.file')
+        zhailu.write(i)
+        zhailu.write('|'+themes[sentences.index(i)])
+        zhailu.write('|'+sources[sentences.index(i)])
+        zhailu.write('|'+authors[sentences.index(i)]+'\n')
+    zhailu.close()
 def main():
     try:
         lists = laoding()
