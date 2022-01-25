@@ -152,7 +152,7 @@ def main():
             print('[system]请选择以下操作\n[1]添加摘录\n[2]搜索摘录\n[3]退出')
             choice = input('请选择：')
             if choice == '1':
-                lists = core.add(lists)
+                lists = add(lists)
             elif choice == '2':
                 keyword = input('关键词：')
                 theme = input('适用主题：')
