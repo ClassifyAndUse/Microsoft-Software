@@ -8,7 +8,7 @@ setup(
     version='0.0.1', # 项目版本 
     author='Mryan2005', # 项目作者 
     url='https://github.com/Mryan2005/excerpt_tool', # 项目代码仓库
-    description='获取任意时间/获取当前的时间戳/时间转时间戳/时间戳转时间', # 项目描述 
+    description='一个摘录软件', # 项目描述 
     packages=['excerpt_tool'], # 包名 
     install_requires=[],
     entry_points={
