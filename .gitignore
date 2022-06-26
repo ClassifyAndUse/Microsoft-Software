@@ -3,3 +3,7 @@ zhailu1.file
 .vscode/launch.json
 import os.py
 excerpt_tool/__pycache__/
+/venv/
+/excerpt_tool.egg-info/
+main1.yml
+.idea/
