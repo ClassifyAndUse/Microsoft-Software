@@ -160,7 +160,7 @@ def main():
         lists = loading()
     try:
         while True:
-            print('[system]请选择以下操作\n[1]添加摘录\n[2]搜索摘录\n[3]版本号\n[4]退出')
+            print('[system]请选择以下操作\n[1]添加摘录\n[2]搜索摘录\n[3]退出')
             choice = input('请选择：')
             if choice == '1':
                 lists = add(lists)
