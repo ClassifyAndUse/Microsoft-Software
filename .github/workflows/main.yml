@@ -25,7 +25,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: bulid exefile
-        if: ${{ github.ref == 'refs/heads/dev' }}
+        if: ${{ github.ref == 'refs/heads/main' }}
         run: |
           docker pull cdrx/pyinstaller-windows
           echo 'ver = "V0.'${{ github.run_number }}'.'${{ github.run_id }}'"'>./excerpt_tool/ver.py
