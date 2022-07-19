@@ -74,7 +74,7 @@ def Search(the_list, keyword, theme, source, author):
     id = sentences.index(sentences_searched[int(id)])
     print('[句子]' + sentences[id])
     if sources[id] != '':
-        print('[出处]' + authors[id] + ' 《' + sources[id] + ' 》')
+        print('[出处]' + authors[id] + sources[id])
     else:
         print('[出处]' + authors[id])
     print('[适用主题]' + themes[id])
