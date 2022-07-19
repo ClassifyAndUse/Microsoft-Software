@@ -6,7 +6,7 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main"]
+    branches: [ "main","dev"]
     tags: ["v*"]
   pull_request:
     branches: [ "main" ]
@@ -25,7 +25,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: bulid exefile
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/dev' }}
         run: |
           docker pull cdrx/pyinstaller-windows
           cd ./excerpt_tool
@@ -34,7 +34,7 @@ jobs:
           cd ..
           mv ./excerpt_tool/main.exe ./excerpt_tool.exe
       - name: Create Release and Upload Release Asset
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/dev' }}
         uses: softprops/action-gh-release@v1
         with:
           tag_name: V0.${{ github.run_number }}.${{ github.run_id }}.dev
