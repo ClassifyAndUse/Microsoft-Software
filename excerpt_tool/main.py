@@ -76,7 +76,7 @@ def Search(the_list, keyword, theme, source, author):
     id = sentences.index(sentences_searched[int(id)])
     print('[句子]' + sentences[id])
     if sources[id] != '':
-        print('[出处]' + authors[id] + ' ' + sources[id])
+        print('[出处]' + authors[id] + ' 《' + sources[id] + ' 《')
     else:
         print('[出处]' + authors[id])
     print('[适用主题]' + themes[id])
@@ -160,30 +160,30 @@ def main():
     except FileNotFoundError:
         zhailu = open('./zhailu.file', 'w')
         lists = loading()
-        try:
-            while True:
-                print('[system]请选择以下操作\n[1]添加摘录\n[2]搜索摘录\n[3]版本号\n[4]退出')
-                choice = input('请选择：')
-                if choice == '1':
-                    lists = add(lists)
-                elif choice == '2':
-                    keyword = input('关键词：')
-                    theme = input('适用主题：')
-                    source = input('出处：')
-                    author = input('作者：')
-                    Search(lists, keyword, theme, source, author)
-                elif choice == '3':
-                    print(ver.ver)
-                elif choice == '4':
-                    is_exit = input('是否退出[y/n] ')
-                    if is_exit == 'y':
-                        save(lists)
-                        break
-        except KeyboardInterrupt:
-            save(lists)
-            print('已退出')
-            sys.exit()
-            input()
+    try:
+        while True:
+            print('[system]请选择以下操作\n[1]添加摘录\n[2]搜索摘录\n[3]版本号\n[4]退出')
+            choice = input('请选择：')
+            if choice == '1':
+                lists = add(lists)
+            elif choice == '2':
+                keyword = input('关键词：')
+                theme = input('适用主题：')
+                source = input('出处：')
+                author = input('作者：')
+                Search(lists, keyword, theme, source, author)
+            elif choice == '3':
+                print(ver.ver)
+            elif choice == '4':
+                is_exit = input('是否退出[y/n] ')
+                if is_exit == 'y':
+                    save(lists)
+                    break
+    except KeyboardInterrupt:
+        save(lists)
+        print('已退出')
+        sys.exit()
+        input()
 
 
 if __name__ == '__main__':
