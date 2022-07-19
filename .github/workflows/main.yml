@@ -28,11 +28,8 @@ jobs:
         if: ${{ github.ref == 'refs/heads/dev' }}
         run: |
           docker pull cdrx/pyinstaller-windows
-          cd ./excerpt_tool
-          echo 'ver = "V0.'${{ github.run_id }}'.dev"'>ver.py
-          cd ..
+          echo 'ver = "V0.'${{ github.run_number }}'.'${{ github.run_id }}'"'>./excerpt_tool/ver.py
           docker run -v $GITHUB_WORKSPACE:/src cdrx/pyinstaller-windows:latest 'pyinstaller -F --clean -y --dist ./ --workpath /tmp ./excerpt_tool/main.py'
-          cd ..
           mv ./main.exe ./excerpt_tool.exe
       - name: Create Release and Upload Release Asset
         if: ${{ github.ref == 'refs/heads/dev' }}
@@ -56,11 +53,8 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           docker pull cdrx/pyinstaller-windows
-          cd excerpt_tool
-          echo 'ver = "V0.'${{ github.run_number }}'.'${{ github.run_id }}'"'>ver.py
-          cd ..
+          echo 'ver = "V0.'${{ github.run_number }}'.'${{ github.run_id }}'"'>./excerpt_tool/ver.py
           docker run -v $GITHUB_WORKSPACE:/src cdrx/pyinstaller-windows:latest 'pyinstaller -F --clean -y --dist ./ --workpath /tmp ./excerpt_tool/main.py'
-          cd ..
           mv ./main.exe ./excerpt_tool.exe
       - name: Create Release and Upload Release Asset
         if: startsWith(github.ref, 'refs/tags/')
