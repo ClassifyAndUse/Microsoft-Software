@@ -1,6 +1,4 @@
 import sys
-import ver
-import os
 
 
 def loading():
@@ -173,8 +171,6 @@ def main():
                 author = input('作者：')
                 Search(lists, keyword, theme, source, author)
             elif choice == '3':
-                print(ver.ver)
-            elif choice == '4':
                 is_exit = input('是否退出[y/n] ')
                 if is_exit == 'y':
                     save(lists)
