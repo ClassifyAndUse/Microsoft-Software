@@ -28,19 +28,20 @@ jobs:
         if: ${{ github.ref == 'refs/heads/main' }}
         run: |
           docker pull cdrx/pyinstaller-windows
+          echo 'ver = "V0.'${{ github.run_id }}'.dev"'>ver.py
           docker run -v $GITHUB_WORKSPACE:/src cdrx/pyinstaller-windows:latest 'pyinstaller -F --clean -y --dist ./ --workpath /tmp ./excerpt_tool/main.py'
-          mv ./main.exe ./excerpt_tool-dev.exe
+          mv ./main.exe ./excerpt_tool.exe
       - name: Create Release and Upload Release Asset
         if: ${{ github.ref == 'refs/heads/main' }}
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: V0.${{ github.run_id }}.dev
-          name: V0.${{ github.run_id }}.dev
+          tag_name: V0.${{ github.run_number }}.${{ github.run_id }}.dev
+          name: V0.${{ github.run_number }}.${{ github.run_id }}.dev
           body: TODO New Release.
           draft: false
           prerelease: true
           files: |
-            excerpt_tool-dev.exe
+            excerpt_tool.exe
   Publishing-GitHub_Release:
     runs-on: ubuntu-latest
     strategy:
@@ -52,14 +53,15 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           docker pull cdrx/pyinstaller-windows
+          echo 'ver = "V0.'${{ github.run_number }}'.'${{ github.run_id }}'"'>ver.py
           docker run -v $GITHUB_WORKSPACE:/src cdrx/pyinstaller-windows:latest 'pyinstaller -F --clean -y --dist ./ --workpath /tmp ./excerpt_tool/main.py'
           mv ./main.exe ./excerpt_tool-dev.exe
       - name: Create Release and Upload Release Asset
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: V0.${{ github.run_id }}.dev
-          name: V0.${{ github.run_id }}.dev
+          tag_name: V0.${{ github.run_number }}.${{ github.run_id }}
+          name: V0.${{ github.run_number }}'.${{ github.run_id }}
           body: TODO New Release.
           draft: false
           prerelease: false
