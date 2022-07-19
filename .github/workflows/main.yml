@@ -25,14 +25,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: bulid exefile
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/dev' }}
         run: |
           docker pull cdrx/pyinstaller-windows
-          cd ./excerpt_tool && echo 'ver = "V0.'${{ github.run_id }}'.dev"'>ver.py
+          echo 'ver = "V0.'${{ github.run_number }}'.'${{ github.run_id }}'"'>./excerpt_tool/ver.py
           docker run -v $GITHUB_WORKSPACE:/src cdrx/pyinstaller-windows:latest 'pyinstaller -F --clean -y --dist ./ --workpath /tmp ./excerpt_tool/main.py'
           mv ./main.exe ./excerpt_tool.exe
       - name: Create Release and Upload Release Asset
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/dev' }}
         uses: softprops/action-gh-release@v1
         with:
           tag_name: V0.${{ github.run_number }}.${{ github.run_id }}.dev
@@ -53,9 +53,9 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           docker pull cdrx/pyinstaller-windows
-          cd ./excerpt_tool && echo 'ver = "V0.'${{ github.run_number }}'.'${{ github.run_id }}'"'>ver.py
+          echo 'ver = "V0.'${{ github.run_number }}'.'${{ github.run_id }}'"'>./excerpt_tool/ver.py
           docker run -v $GITHUB_WORKSPACE:/src cdrx/pyinstaller-windows:latest 'pyinstaller -F --clean -y --dist ./ --workpath /tmp ./excerpt_tool/main.py'
-          mv ./main.exe ./excerpt_tool-dev.exe
+          mv ./main.exe ./excerpt_tool.exe
       - name: Create Release and Upload Release Asset
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v1
