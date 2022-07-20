@@ -35,94 +35,62 @@ def loading():
 
 
 def Search(the_list, keyword, theme, source, author):
-    sentences = []
-    themes = []
-    sources = []
-    authors = []
-    time = 0
-    for c in the_list:
-        time = time + 1
-        if time == 5 or time > 5:
-            time = 1
-        if time == 1:
-            sentences.append(c)
-        elif time == 2:
-            themes.append(c)
-        elif time == 3:
-            sources.append(c)
-        elif time == 4:
-            authors.append(c)
-    sentences_searched = []
-    if keyword != '':
-        for i in sentences:
-            if keyword in i:
-                sentences_searched.append(i)
-    #   elif theme != '':
-    #        for i in themes:
-    #            if keyword in i:
-    #                sentences_searched.append(i)
-    #    elif source != '':
-    #        for i in sources:
-    #            if keyword in i:
-    #                sentences_searched.append(i)"
-    id_ = 0
-    print('已搜到与“' + keyword + '”相关摘录')
-    for c in sentences_searched:
-        print('[' + str(id_) + ']' + c)
-        id_ = int(id_) + 1
-    id = input('请选择：')
-    id = sentences.index(sentences_searched[int(id)])
-    print('[句子]' + sentences[id])
-    if sources[id] != '':
-        print('[出处]' + authors[id] + sources[id])
-    else:
-        print('[出处]' + authors[id])
-    print('[适用主题]' + themes[id])
-
-
-def add(the_list):
-    sentences = []
-    themes = []
-    sources = []
-    authors = []
-    time = 0
-    for c in the_list:
-        time = time + 1
-        if time == 5:
-            time = 1
-        if time == 1:
-            sentences.append(c)
-        elif time == 2:
-            themes.append(c)
-        elif time == 3:
-            sources.append(c)
-        elif time == 4:
-            authors.append(c)
-    while True:
-        is_input = True
-        sentence = input('[句子]')
-        for i in sentences:
-            if sentence == i:
-                print('[错误]句子重复')
-                is_input = False
-        if is_input == True:
-            theme = input('[主题]')
-            source = input('[出处]')
-            author = input('[作者]')
-            the_list.append(sentence)
-            if theme == '':
-                the_list.append('')
-            else:
-                the_list.append(theme)
-            if source == '':
-                the_list.append('')
-            else:
-                the_list.append(source)
-            if author == '':
-                the_list.append('')
-            else:
-                the_list.append(author)
-            return the_list
+    try:
+        sentences = []
+        themes = []
+        sources = []
+        authors = []
+        time = 0
+        for c in the_list:
+            time = time + 1
+            if time == 5 or time > 5:
+                time = 1
+            if time == 1:
+                sentences.append(c)
+            elif time == 2:
+                themes.append(c)
+            elif time == 3:
+                sources.append(c)
+            elif time == 4:
+                authors.append(c)
+        sentences_searched = []
+        if keyword != '':
+            for i in sentences:
+                if keyword in i:
+                    sentences_searched.append(i)
+        #   elif theme != '':
+        #        for i in themes:
+        #            if keyword in i:
+        #                sentences_searched.append(i)
+        #    elif source != '':
+        #        for i in sources:
+        #            if keyword in i:
+        #                sentences_searched.append(i)"
+        id_ = 0
+        print('已搜到与“' + keyword + '”相关摘录')
+        for c in sentences_searched:
+            print('[' + str(id_) + ']' + c)
+            id_ = int(id_) + 1
+        id = input('请选择：')
+        id = sentences.index(sentences_searched[int(id)])
+        print('[句子]' + sentences[id])
+        if '《' in sources[id] and '》' in sources[id]:
+            print('[出处]' + authors[id] + sources[id])
+        else:
+            print('[出处]' + authors[id] + '《' + sources[id] + '》')
+        print('[适用主题]' + themes[id])
+    except IndexError:
+        if keyword == '':
+            main('', True)
+        else:
+            print('找不到相关信息')
+            main(2, True)
+    except ValueError:
+        if keyword == '':
+            main('', True)
+        else:
+            print('找不到相关信息')
+            main(2, True)
 
 
 def save(the_list):
@@ -152,18 +120,75 @@ def save(the_list):
     zhailu.close()
 
 
-def main():
-    try:
-        lists = loading()
-    except FileNotFoundError:
-        zhailu = open('./zhailu.file', 'w')
-        lists = loading()
+def main(choice, pass_load):
+    global lists
+    if choice == '':
+        print('[system]请选择以下操作\n[1]添加摘录\n[2]搜索摘录\n[3]退出')
+        choice = input('请选择：')
+    source_last = ''
+    author_last = ''
+    if pass_load == False:
+        try:
+            lists = loading()
+        except FileNotFoundError:
+            zhailu = open('./zhailu.file', 'w')
+            lists = loading()
+
     try:
         while True:
-            print('[system]请选择以下操作\n[1]添加摘录\n[2]搜索摘录\n[3]退出')
-            choice = input('请选择：')
             if choice == '1':
-                lists = add(lists)
+                sentences = []
+                themes = []
+                sources = []
+                authors = []
+                time = 0
+                for c in lists:
+                    time = time + 1
+                    if time == 5:
+                        time = 1
+                    if time == 1:
+                        sentences.append(c)
+                    elif time == 2:
+                        themes.append(c)
+                    elif time == 3:
+                        sources.append(c)
+                    elif time == 4:
+                        authors.append(c)
+                while True:
+                    is_input = True
+                    sentence = input('[句子]')
+                    if sentence == '':
+                        main('', True)
+                    else:
+                        for i in sentences:
+                            if sentence == i:
+                                print('[错误]句子重复')
+                                is_input = False
+                    if is_input == True:
+                        theme = input('[主题]')
+                        source = input('[出处]')
+                        author = input('[作者]')
+                        lists.append(sentence)
+                        if theme == '':
+                            lists.append('')
+                        else:
+                            lists.append(theme)
+                        if source == ' ':
+                            lists.append('')
+                            source_last = ''
+                        elif source == '':
+                            lists.append(source_last)
+                        else:
+                            source_last = source
+                            lists.append(source)
+                        if author == '':
+                            lists.append(author_last)
+                        elif author == ' ':
+                            lists.append('')
+                            author_last = ''
+                        else:
+                            lists.append(author)
+                            author_last = author
             elif choice == '2':
                 keyword = input('关键词：')
                 theme = input('适用主题：')
@@ -174,7 +199,10 @@ def main():
                 is_exit = input('是否退出[y/n] ')
                 if is_exit == 'y':
                     save(lists)
-                    break
+                    sys.exit()
+            else:
+                print('请重新输入')
+                main('', True)
     except KeyboardInterrupt:
         save(lists)
         print('已退出')
@@ -183,4 +211,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main('', False)
