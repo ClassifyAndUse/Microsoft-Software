@@ -120,14 +120,14 @@ def save(the_list):
     zhailu.close()
 
 
-def main(choice, pass_load):
+def main(choice, pass_run):
     global lists
     if choice == '':
         print('[system]请选择以下操作\n[1]添加摘录\n[2]搜索摘录\n[3]退出')
         choice = input('请选择：')
-    source_last = ''
-    author_last = ''
-    if pass_load == False:
+    if pass_run== False:
+        source_last = ''
+        author_last = ''
         try:
             lists = loading()
         except FileNotFoundError:
