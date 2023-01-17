@@ -99,8 +99,8 @@ def Search(the_list, keyword, theme, source, author, type_):
             print('[出处]' + authors[id] + sources[id])
         else:
             print('[出处]' + authors[id] + '《' + sources[id] + '》')
-        if means[id] ！= ''
-        print('[意思]' + means[id])
+        if means[id] != '':
+            print('[意思]' + means[id])
         print('[适用主题]' + themes[id])
     except IndexError:
         if keyword == '':
