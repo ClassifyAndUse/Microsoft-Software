@@ -189,6 +189,7 @@ def main(choice, pass_run):
                         else:
                             lists.append(author)
                             author_last = author
+                        save(lists)
             elif choice == '2':
                 keyword = input('关键词：')
                 theme = input('适用主题：')
