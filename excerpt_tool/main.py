@@ -4,7 +4,7 @@ import sys
 def loading():
     line = []
     text = ''
-    zhailu = open('./zhailu.file', 'r')
+    zhailu = open('./zhailu.cau', 'r')
     for i in zhailu:
         for a in i:
             if a == '\n' or a == '|' or a == '':
@@ -16,10 +16,11 @@ def loading():
         theme = []
         source = []
         author = []
+        types = []
         time = 0
         for c in line:
             time = time + 1
-            if time == 5:
+            if time == 6:
                 time = 1
             elif time == 1:
                 sentence.append(c)
@@ -29,21 +30,25 @@ def loading():
                 source.append(c)
             elif time == 4:
                 author.append(c)
+            elif time == 5:
+                types.append(c)
     zhailu.close()
     print('[system]文件加载成功')
     return line
 
 
-def Search(the_list, keyword, theme, source, author):
+def Search(the_list, keyword, theme, source, author, type_):
     try:
         sentences = []
         themes = []
         sources = []
         authors = []
+        types = []
+        means = []
         time = 0
         for c in the_list:
             time = time + 1
-            if time == 5 or time > 5:
+            if time == 7:
                 time = 1
             if time == 1:
                 sentences.append(c)
@@ -53,19 +58,35 @@ def Search(the_list, keyword, theme, source, author):
                 sources.append(c)
             elif time == 4:
                 authors.append(c)
+            elif time == 5:
+                types.append(c)
+            elif time == 6:
+                means.append(c)
         sentences_searched = []
         if keyword != '':
             for i in sentences:
                 if keyword in i:
                     sentences_searched.append(i)
-        #   elif theme != '':
-        #        for i in themes:
-        #            if keyword in i:
-        #                sentences_searched.append(i)
-        #    elif source != '':
-        #        for i in sources:
-        #            if keyword in i:
-        #                sentences_searched.append(i)"
+        if theme != '':
+            for i in sentences_searched:
+                id = sentences.index(i)
+                if theme != themes[id]:
+                    sentences_searched.remove(sentences_searched[sentences_searched.index(i)])
+        if source != '':
+            for i in sentences_searched:
+                id = sentences.index(i)
+                if source != sources[id]:
+                    sentences_searched.remove(sentences_searched[sentences_searched.index(i)])
+        if type_ != '':
+            for i in sentences_searched:
+                id = sentences.index(i)
+                if types != types[id]:
+                    sentences_searched.remove(sentences_searched[sentences_searched.index(i)])
+        if author != '':
+            for i in sentences_searched:
+                id = sentences.index(i)
+                if author != authors[id]:
+                    sentences_searched.remove(sentences_searched[sentences_searched.index(i)])
         id_ = 0
         print('已搜到与“' + keyword + '”相关摘录')
         for c in sentences_searched:
@@ -78,31 +99,35 @@ def Search(the_list, keyword, theme, source, author):
             print('[出处]' + authors[id] + sources[id])
         else:
             print('[出处]' + authors[id] + '《' + sources[id] + '》')
+        if means[id] ！= ''
+        print('[意思]' + means[id])
         print('[适用主题]' + themes[id])
     except IndexError:
         if keyword == '':
             main('', True)
         else:
             print('找不到相关信息')
-            main(2, True)
+            main('2', True)
     except ValueError:
         if keyword == '':
             main('', True)
         else:
             print('找不到相关信息')
-            main(2, True)
+            main('2', True)
 
 
 def save(the_list):
-    zhailu = open('zhailu.file', 'w')
+    zhailu = open('zhailu.cau', 'w')
     sentences = []
     themes = []
     sources = []
     authors = []
+    types= []
+    means = []
     time = 0
     for i in the_list:
         time = time + 1
-        if time == 5:
+        if time == 7:
             time = 1
         if time == 1:
             sentences.append(i)
@@ -112,11 +137,17 @@ def save(the_list):
             sources.append(i)
         elif time == 4:
             authors.append(i)
+        elif time == 5:
+            types.append(i)
+        elif time == 6:
+            means.append(i)
     for i in sentences:
         zhailu.write(i)
         zhailu.write('|' + themes[sentences.index(i)])
         zhailu.write('|' + sources[sentences.index(i)])
-        zhailu.write('|' + authors[sentences.index(i)] + '\n')
+        zhailu.write('|' + authors[sentences.index(i)])
+        zhailu.write('|' + types[sentences.index(i)])
+        zhailu.write('|' + means[sentences.index(i)] + '\n')
     zhailu.close()
 
 
@@ -131,9 +162,8 @@ def main(choice, pass_run):
         try:
             lists = loading()
         except FileNotFoundError:
-            zhailu = open('./zhailu.file', 'w')
+            zhailu = open('./zhailu.cau', 'w')
             lists = loading()
-
     try:
         while True:
             if choice == '1':
@@ -141,10 +171,11 @@ def main(choice, pass_run):
                 themes = []
                 sources = []
                 authors = []
+                types = []
                 time = 0
                 for c in lists:
                     time = time + 1
-                    if time == 5:
+                    if time == 6:
                         time = 1
                     if time == 1:
                         sentences.append(c)
@@ -154,6 +185,8 @@ def main(choice, pass_run):
                         sources.append(c)
                     elif time == 4:
                         authors.append(c)
+                    elif time == 5:
+                        types.append(c)
                 while True:
                     is_input = True
                     sentence = input('[句子]')
@@ -167,6 +200,19 @@ def main(choice, pass_run):
                     if is_input == True:
                         theme = input('[主题]')
                         source = input('[出处]')
+                        while True:
+                            print('[system]请选择以下类型\n[1]词语\n[2]句子')
+                            type_ = input('[类型]')
+                            if type_ == '':
+                                print('[system]错误！该项不得为空')
+                            elif type_ == '1':
+                                type_ = '词语'
+                                break
+                            elif type_ == '2':
+                                type_ = '句子'
+                                break
+                            else:
+                                print('[system]错误！没有这个选项')
                         author = input('[作者]')
                         lists.append(sentence)
                         if theme == '':
@@ -189,13 +235,16 @@ def main(choice, pass_run):
                         else:
                             lists.append(author)
                             author_last = author
+                        lists.append(type_)
+                        lists.append(input('[意思]')) # 意思
                         save(lists)
             elif choice == '2':
                 keyword = input('关键词：')
                 theme = input('适用主题：')
                 source = input('出处：')
                 author = input('作者：')
-                Search(lists, keyword, theme, source, author)
+                type_ = input('类型：')
+                Search(lists, keyword, theme, source, author,type_)
             elif choice == '3':
                 is_exit = input('是否退出[y/n] ')
                 if is_exit == 'y':
