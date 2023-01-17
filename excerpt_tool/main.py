@@ -4,7 +4,7 @@ import sys
 def loading():
     line = []
     text = ''
-    zhailu = open('./zhailu.cau', 'r')
+    zhailu = open('./zhailu.file', 'r')
     for i in zhailu:
         for a in i:
             if a == '\n' or a == '|' or a == '':
@@ -94,7 +94,7 @@ def Search(the_list, keyword, theme, source, author):
 
 
 def save(the_list):
-    zhailu = open('zhailu.cau', 'w')
+    zhailu = open('zhailu.file', 'w')
     sentences = []
     themes = []
     sources = []
@@ -122,17 +122,18 @@ def save(the_list):
 
 def main(choice, pass_run):
     global lists
+    if choice == '':
+        print('[system]请选择以下操作\n[1]添加摘录\n[2]搜索摘录\n[3]退出')
+        choice = input('请选择：')
     if pass_run== False:
         source_last = ''
         author_last = ''
         try:
             lists = loading()
         except FileNotFoundError:
-            zhailu = open('./zhailu.cau', 'w')
+            zhailu = open('./zhailu.file', 'w')
             lists = loading()
-    if choice == '':
-        print('[system]请选择以下操作\n[1]添加摘录\n[2]搜索摘录\n[3]退出')
-        choice = input('请选择：')
+
     try:
         while True:
             if choice == '1':
@@ -188,7 +189,6 @@ def main(choice, pass_run):
                         else:
                             lists.append(author)
                             author_last = author
-                        save(lists)
             elif choice == '2':
                 keyword = input('关键词：')
                 theme = input('适用主题：')
