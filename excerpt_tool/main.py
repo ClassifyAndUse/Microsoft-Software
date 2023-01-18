@@ -77,10 +77,10 @@ def translate():
             sources.append(c)
         elif time == 4:
             authors.append(c)
-            print('你认为 ' + sentenc + ' 是什么类型')
-            if len(c) < 10:
+            if len(sentenc) > 10:
                 types.append('句子')
             else:
+                print('你认为 ' + sentenc + ' 是什么类型')
                 while True:
                     print('[system]请选择以下类型\n[1]词语\n[2]句子')
                     type_ = input('[类型]')
