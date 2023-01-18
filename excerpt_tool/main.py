@@ -318,7 +318,7 @@ def main(choice, pass_run):
                             lists.append(author)
                             author_last = author
                         lists.append(type_)
-                        lists.append(mean) # 意思
+                        lists.append(str(mean)) # 意思
                         save(lists)
             elif choice == '2':
                 keyword = input('关键词：')
