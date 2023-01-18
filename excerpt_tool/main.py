@@ -275,19 +275,22 @@ def main(choice, pass_run):
                     if is_input == True:
                         theme = input('[主题]')
                         source = input('[出处]')
-                        while True:
-                            print('[system]请选择以下类型\n[1]词语\n[2]句子')
-                            type_ = input('[类型]')
-                            if type_ == '':
-                                print('[system]错误！该项不得为空')
-                            elif type_ == '1':
-                                type_ = '词语'
-                                break
-                            elif type_ == '2':
-                                type_ = '句子'
-                                break
-                            else:
-                                print('[system]错误！没有这个选项')
+                        if len(sentence) > 10:
+                            type_ = '句子'
+                        else:
+                            while True:
+                                print('[system]请选择以下类型\n[1]词语\n[2]句子')
+                                type_ = input('[类型]')
+                                if type_ == '':
+                                    print('[system]错误！该项不得为空')
+                                elif type_ == '1':
+                                    type_ = '词语'
+                                    break
+                                elif type_ == '2':
+                                    type_ = '句子'
+                                    break
+                                else:
+                                    print('[system]错误！没有这个选项')
                         author = input('[作者]')
                         lists.append(sentence)
                         if theme == '':
