@@ -1,5 +1,5 @@
 import sys
-
+import os
 
 def loading():
     line = []
@@ -17,10 +17,11 @@ def loading():
         source = []
         author = []
         types = []
+        means = []
         time = 0
         for c in line:
             time = time + 1
-            if time == 6:
+            if time == 7:
                 time = 1
             elif time == 1:
                 sentence.append(c)
@@ -32,9 +33,79 @@ def loading():
                 author.append(c)
             elif time == 5:
                 types.append(c)
+            elif time == 6:
+                means.append(c)
     zhailu.close()
     print('[system]文件加载成功')
     return line
+
+def translate():
+    line = []
+    text = ''
+    try:
+        zhailu = open('./zhailu.file', 'r')
+    except FileNotFoundError:
+        print('找不到旧文件')
+        main('',False)
+        zhailu = open('./zhailu.file', 'w')
+    for i in zhailu:
+        for a in i:
+            if a == '\n' or a == '|' or a == '':
+                line.append(text)
+                text = ''
+            else:
+                text = text + a
+    zhailu.close()
+    print('[system]旧文件加载成功')
+    sentences = []
+    themes = []
+    sources = []
+    authors = []
+    types = []
+    means = []
+    time = 0
+    for c in line:
+        time = time + 1
+        if time == 7:
+            time = 1
+        if time == 1:
+            sentenc = c
+            sentences.append(c)
+        elif time == 2:
+            themes.append(c)
+        elif time == 3:
+            sources.append(c)
+        elif time == 4:
+            authors.append(c)
+            print('你认为 ' + sentenc + ' 是什么类型')
+            if len(c) > 10:
+                types.append('句子')
+            else:
+                while True:
+                    print('[system]请选择以下类型\n[1]词语\n[2]句子')
+                    type_ = input('[类型]')
+                    if type_ == '':
+                        print('[system]错误！该项不得为空')
+                    elif type_ == '1':
+                        types.append('词语')
+                        break
+                    elif type_ == '2':
+                        types.append('句子')
+                        break
+                    else:
+                        print('[system]错误！没有这个选项')
+            means.append('')
+    line = []
+    for i in sentences:
+        id = sentences.index(i)
+        line.append(i)
+        line.append(themes[id])
+        line.append(sources[id])
+        line.append(authors[id])
+        line.append(types[id])
+        line.append(means[id])
+    save(line)
+    main('', False)
 
 
 def Search(the_list, keyword, theme, source, author, type_):
@@ -67,6 +138,9 @@ def Search(the_list, keyword, theme, source, author, type_):
             for i in sentences:
                 if keyword in i:
                     sentences_searched.append(i)
+        elif keyword == '':
+            for i in sentences:
+                sentences_searched.append(i)
         if theme != '':
             for i in sentences_searched:
                 id = sentences.index(i)
@@ -80,7 +154,7 @@ def Search(the_list, keyword, theme, source, author, type_):
         if type_ != '':
             for i in sentences_searched:
                 id = sentences.index(i)
-                if types != types[id]:
+                if type_ != types[id]:
                     sentences_searched.remove(sentences_searched[sentences_searched.index(i)])
         if author != '':
             for i in sentences_searched:
@@ -154,7 +228,7 @@ def save(the_list):
 def main(choice, pass_run):
     global lists
     if choice == '':
-        print('[system]请选择以下操作\n[1]添加摘录\n[2]搜索摘录\n[3]退出')
+        print('[system]请选择以下操作\n[1]添加摘录\n[2]搜索摘录\n[3]转换\n[4]退出')
         choice = input('请选择：')
     if pass_run== False:
         source_last = ''
@@ -163,6 +237,7 @@ def main(choice, pass_run):
             lists = loading()
         except FileNotFoundError:
             zhailu = open('./zhailu.cau', 'w')
+            zhailu.close()
             lists = loading()
     try:
         while True:
@@ -246,10 +321,12 @@ def main(choice, pass_run):
                 type_ = input('类型：')
                 Search(lists, keyword, theme, source, author,type_)
             elif choice == '3':
+                translate()
+            elif choice == '4':
                 is_exit = input('是否退出[y/n] ')
                 if is_exit == 'y':
                     save(lists)
-                    sys.exit()
+                    os._exit()
             else:
                 print('请重新输入')
                 main('', True)
