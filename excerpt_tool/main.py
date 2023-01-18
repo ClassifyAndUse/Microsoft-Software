@@ -1,6 +1,7 @@
-#encoding=’gb2312’
+# encoding=’gb2312’
 import sys
 import os
+
 
 def loading():
     line = []
@@ -40,6 +41,7 @@ def loading():
     print('[system]文件加载成功')
     return line
 
+
 def translate():
     line = []
     text = ''
@@ -47,7 +49,7 @@ def translate():
         zhailu = open('./zhailu.file', 'r')
     except FileNotFoundError:
         print('找不到旧文件')
-        main('',False)
+        main('', False)
         zhailu = open('./zhailu.file', 'w')
     for i in zhailu:
         for a in i:
@@ -95,16 +97,16 @@ def translate():
                         break
                     else:
                         print('[system]错误！没有这个选项')
-            means.append('')
+            means.append(' ')
     line = []
     for i in sentences:
-        id = sentences.index(i)
+        id_ = sentences.index(i)
         line.append(i)
-        line.append(themes[id])
-        line.append(sources[id])
-        line.append(authors[id])
-        line.append(types[id])
-        line.append(means[id])
+        line.append(themes[id_])
+        line.append(sources[id_])
+        line.append(authors[id_])
+        line.append(types[id_])
+        line.append(means[id_])
     save(line)
     main('', False)
 
@@ -144,39 +146,39 @@ def Search(the_list, keyword, theme, source, author, type_):
                 sentences_searched.append(i)
         if theme != '':
             for i in sentences_searched:
-                id = sentences.index(i)
-                if theme != themes[id]:
+                id_ = sentences.index(i)
+                if theme != themes[id_]:
                     sentences_searched.remove(sentences_searched[sentences_searched.index(i)])
         if source != '':
             for i in sentences_searched:
-                id = sentences.index(i)
-                if source != sources[id]:
+                id_ = sentences.index(i)
+                if source != sources[id_]:
                     sentences_searched.remove(sentences_searched[sentences_searched.index(i)])
         if type_ != '':
             for i in sentences_searched:
-                id = sentences.index(i)
-                if type_ != types[id]:
+                id_ = sentences.index(i)
+                if type_ != types[id_]:
                     sentences_searched.remove(sentences_searched[sentences_searched.index(i)])
         if author != '':
             for i in sentences_searched:
-                id = sentences.index(i)
-                if author != authors[id]:
+                id_ = sentences.index(i)
+                if author != authors[id_]:
                     sentences_searched.remove(sentences_searched[sentences_searched.index(i)])
         id_ = 0
         print('已搜到与“' + keyword + '”相关摘录')
         for c in sentences_searched:
             print('[' + str(id_) + ']' + c)
             id_ = int(id_) + 1
-        id = input('请选择：')
-        id = sentences.index(sentences_searched[int(id)])
-        print('[句子]' + sentences[id])
-        if '《' in sources[id] and '》' in sources[id]:
-            print('[出处]' + authors[id] + sources[id])
+        id_ = input('请选择：')
+        id_ = sentences.index(sentences_searched[int(id_)])
+        print('[句子]' + sentences[id_])
+        if '《' in sources[id_] and '》' in sources[id_]:
+            print('[出处]' + authors[id_] + sources[id_])
         else:
-            print('[出处]' + authors[id] + '《' + sources[id] + '》')
-        if means[id] != '':
-            print('[意思]' + means[id])
-        print('[适用主题]' + themes[id])
+            print('[出处]' + authors[id_] + '《' + sources[id_] + '》')
+        if means[id_] != '':
+            print('[意思]' + means[id_])
+        print('[适用主题]' + themes[id_])
     except IndexError:
         if keyword == '':
             main('', True)
@@ -197,7 +199,7 @@ def save(the_list):
     themes = []
     sources = []
     authors = []
-    types= []
+    types = []
     means = []
     time = 0
     for i in the_list:
@@ -231,7 +233,7 @@ def main(choice, pass_run):
     if choice == '':
         print('[system]请选择以下操作\n[1]添加摘录\n[2]搜索摘录\n[3]转换\n[4]退出')
         choice = input('请选择：')
-    if pass_run== False:
+    if pass_run == False:
         source_last = ''
         author_last = ''
         try:
@@ -319,7 +321,10 @@ def main(choice, pass_run):
                             lists.append(author)
                             author_last = author
                         lists.append(type_)
-                        lists.append(str(mean)) # 意思
+                        if mean != '':
+                            lists.append(str(mean))  # 意思
+                        else:
+                            lists.append(' ')
                         save(lists)
             elif choice == '2':
                 keyword = input('关键词：')
@@ -327,14 +332,14 @@ def main(choice, pass_run):
                 source = input('出处：')
                 author = input('作者：')
                 type_ = input('类型：')
-                Search(lists, keyword, theme, source, author,type_)
+                Search(lists, keyword, theme, source, author, type_)
             elif choice == '3':
                 translate()
             elif choice == '4':
                 is_exit = input('是否退出[y/n] ')
                 if is_exit == 'y':
                     save(lists)
-                    os._exit()
+                    sys.exit()
             else:
                 print('请重新输入')
                 main('', True)
