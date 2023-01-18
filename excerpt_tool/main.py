@@ -78,7 +78,7 @@ def translate():
         elif time == 4:
             authors.append(c)
             print('你认为 ' + sentenc + ' 是什么类型')
-            if len(c) > 10:
+            if len(c) < 10:
                 types.append('句子')
             else:
                 while True:
