@@ -247,10 +247,11 @@ def main(choice, pass_run):
                 sources = []
                 authors = []
                 types = []
+                means = []
                 time = 0
                 for c in lists:
                     time = time + 1
-                    if time == 6:
+                    if time == 7:
                         time = 1
                     if time == 1:
                         sentences.append(c)
@@ -262,6 +263,8 @@ def main(choice, pass_run):
                         authors.append(c)
                     elif time == 5:
                         types.append(c)
+                    elif time == 6:
+                        means.append(c)
                 while True:
                     is_input = True
                     sentence = input('[句子]')
