@@ -66,7 +66,7 @@ def translate():
     time = 0
     for c in line:
         time = time + 1
-        if time == 7:
+        if time == 5:
             time = 1
         if time == 1:
             sentenc = c
