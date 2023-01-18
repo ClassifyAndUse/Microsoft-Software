@@ -9,3 +9,6 @@ main1.yml
 /excerpt_tool/ver.py
 excerpt_tool/zhailu.cau
 zhailu.cau
+/excerpt_tool/build/
+/excerpt_tool/main.spec
+/excerpt_tool/dist/

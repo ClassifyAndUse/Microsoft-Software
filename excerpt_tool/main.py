@@ -295,6 +295,7 @@ def main(choice, pass_run):
                                 else:
                                     print('[system]错误！没有这个选项')
                         author = input('[作者]')
+                        mean = input('[意思]')
                         lists.append(sentence)
                         if theme == '':
                             lists.append('')
@@ -317,7 +318,7 @@ def main(choice, pass_run):
                             lists.append(author)
                             author_last = author
                         lists.append(type_)
-                        lists.append(input('[意思]')) # 意思
+                        lists.append(mean) # 意思
                         save(lists)
             elif choice == '2':
                 keyword = input('关键词：')
