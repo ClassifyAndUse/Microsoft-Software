@@ -38,16 +38,6 @@ def loading():
             elif time == 6:
                 means.append(c)
     zhailu.close()
-    try:
-        log = open('./sentence_log', 'r')
-        for i in log:
-            Value = i + Value
-            print(Value)
-    except FileNotFoundError:
-        print('找不到旧文件')
-        main('', False)
-        log = open('./sentence_log', 'w')
-        log.write(len(sentence))
     print('[system]文件加载成功')
     return line
 
@@ -242,8 +232,8 @@ def main(choice, pass_run):
     global lists
     if choice == '':
         print('[system]请选择以下操作\n[1]添加摘录\n[2]搜索摘录\n[3]转换\n[4]我的进步\n[5]退出')
-        choice = input('请选择：')
     if pass_run == False:
+        global source_last,author_last,Value
         source_last = ''
         author_last = ''
         try:
@@ -252,31 +242,55 @@ def main(choice, pass_run):
             zhailu = open('./zhailu.cau', 'w')
             zhailu.close()
             lists = loading()
+        sentences = []
+        themes = []
+        sources = []
+        authors = []
+        types = []
+        means = []
+        time = 0
+        for c in lists:
+            time = time + 1
+            if time == 7:
+                time = 1
+            if time == 1:
+                sentences.append(c)
+            elif time == 2:
+                themes.append(c)
+            elif time == 3:
+                sources.append(c)
+            elif time == 4:
+                authors.append(c)
+            elif time == 5:
+                types.append(c)
+            elif time == 6:
+                means.append(c)
+        Value = len(sentences)
     try:
-        while True:
-                sentences = []
-                themes = []
-                sources = []
-                authors = []
-                types = []
-                means = []
-                time = 0
-                for c in lists:
-                    time = time + 1
-                    if time == 7:
-                        time = 1
-                    if time == 1:
-                        sentences.append(c)
-                    elif time == 2:
-                        themes.append(c)
-                    elif time == 3:
-                        sources.append(c)
-                    elif time == 4:
-                        authors.append(c)
-                    elif time == 5:
-                        types.append(c)
-                    elif time == 6:
-                        means.append(c)
+        sentences = []
+        themes = []
+        sources = []
+        authors = []
+        types = []
+        means = []
+        time = 0
+        for c in lists:
+            time = time + 1
+            if time == 7:
+                time = 1
+            if time == 1:
+                sentences.append(c)
+            elif time == 2:
+                themes.append(c)
+            elif time == 3:
+                sources.append(c)
+            elif time == 4:
+                authors.append(c)
+            elif time == 5:
+                types.append(c)
+            elif time == 6:
+                means.append(c)
+        choice = input('请选择：')
         if choice == '1':
             while True:
                 is_input = True
@@ -351,14 +365,14 @@ def main(choice, pass_run):
                 save(lists)
                 sys.exit()
         elif choice == '4':
-            len(sentences)
+            print('你有'+str(len(sentences))+'个摘录条子')
+            print('你相比上次进步了'+str((len(sentences)-Value)/Value))
+            main('', True)
         else:
             print('请重新输入')
             main('', True)
     except KeyboardInterrupt:
         save(lists)
-        c =open('./sentence_log', 'w')
-        c.write(len(sentences))
         print('已退出')
         sys.exit()
         input()
