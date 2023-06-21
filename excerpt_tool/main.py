@@ -351,10 +351,10 @@ def main(choice, pass_run):
                 save(lists)
                 sys.exit()
         elif choice == '4':
-                len(sentences)
+            len(sentences)
         else:
-                print('请重新输入')
-                main('', True)
+            print('请重新输入')
+            main('', True)
     except KeyboardInterrupt:
         save(lists)
         c =open('./sentence_log', 'w')
