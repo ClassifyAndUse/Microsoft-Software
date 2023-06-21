@@ -366,7 +366,7 @@ def main(choice, pass_run):
                 sys.exit()
         elif choice == '4':
             print('你有'+str(len(sentences))+'个摘录条子')
-            print('你相比上次进步了'+str((len(sentences)-Value)/Value))
+            print('你相比上次进步了'+str(round((len(sentences)-Value)/Value),3)*100+'%')
             main('', True)
         else:
             print('请重新输入')
