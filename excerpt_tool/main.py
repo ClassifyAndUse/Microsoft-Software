@@ -231,9 +231,9 @@ def save(the_list):
 def main(choice, pass_run):
     global lists
     if choice == '':
-        print('[system]请选择以下操作\n[1]添加摘录\n[2]搜索摘录\n[3]转换\n[4]退出')
-        choice = input('请选择：')
+        print('[system]请选择以下操作\n[1]添加摘录\n[2]搜索摘录\n[3]转换\n[4]我的进步\n[5]退出')
     if pass_run == False:
+        global source_last,author_last,Value
         source_last = ''
         author_last = ''
         try:
@@ -242,107 +242,135 @@ def main(choice, pass_run):
             zhailu = open('./zhailu.cau', 'w')
             zhailu.close()
             lists = loading()
+        sentences = []
+        themes = []
+        sources = []
+        authors = []
+        types = []
+        means = []
+        time = 0
+        for c in lists:
+            time = time + 1
+            if time == 7:
+                time = 1
+            if time == 1:
+                sentences.append(c)
+            elif time == 2:
+                themes.append(c)
+            elif time == 3:
+                sources.append(c)
+            elif time == 4:
+                authors.append(c)
+            elif time == 5:
+                types.append(c)
+            elif time == 6:
+                means.append(c)
+        Value = len(sentences)
     try:
-        while True:
-            if choice == '1':
-                sentences = []
-                themes = []
-                sources = []
-                authors = []
-                types = []
-                means = []
-                time = 0
-                for c in lists:
-                    time = time + 1
-                    if time == 7:
-                        time = 1
-                    if time == 1:
-                        sentences.append(c)
-                    elif time == 2:
-                        themes.append(c)
-                    elif time == 3:
-                        sources.append(c)
-                    elif time == 4:
-                        authors.append(c)
-                    elif time == 5:
-                        types.append(c)
-                    elif time == 6:
-                        means.append(c)
-                while True:
-                    is_input = True
-                    sentence = input('[句子]')
-                    if sentence == '':
-                        main('', True)
+        sentences = []
+        themes = []
+        sources = []
+        authors = []
+        types = []
+        means = []
+        time = 0
+        for c in lists:
+            time = time + 1
+            if time == 7:
+                time = 1
+            if time == 1:
+                sentences.append(c)
+            elif time == 2:
+                themes.append(c)
+            elif time == 3:
+                sources.append(c)
+            elif time == 4:
+                authors.append(c)
+            elif time == 5:
+                types.append(c)
+            elif time == 6:
+                means.append(c)
+        choice = input('请选择：')
+        if choice == '1':
+            while True:
+                is_input = True
+                sentence = input('[句子]')
+                if sentence == '':
+                    main('', True)
+                else:
+                    for i in sentences:
+                        if sentence == i:
+                            print('[错误]句子重复')
+                            is_input = False
+                if is_input == True:
+                    theme = input('[主题]')
+                    source = input('[出处]')
+                    if len(sentence) > 10:
+                        type_ = '句子'
                     else:
-                        for i in sentences:
-                            if sentence == i:
-                                print('[错误]句子重复')
-                                is_input = False
-                    if is_input == True:
-                        theme = input('[主题]')
-                        source = input('[出处]')
-                        if len(sentence) > 10:
-                            type_ = '句子'
-                        else:
-                            while True:
-                                print('[system]请选择以下类型\n[1]词语\n[2]句子')
-                                type_ = input('[类型]')
-                                if type_ == '':
-                                    print('[system]错误！该项不得为空')
-                                elif type_ == '1':
-                                    type_ = '词语'
-                                    break
-                                elif type_ == '2':
-                                    type_ = '句子'
-                                    break
-                                else:
-                                    print('[system]错误！没有这个选项')
-                        author = input('[作者]')
-                        mean = input('[意思]')
-                        lists.append(sentence)
-                        if theme == '':
-                            lists.append('')
-                        else:
-                            lists.append(theme)
-                        if source == ' ':
-                            lists.append('')
-                            source_last = ''
-                        elif source == '':
-                            lists.append(source_last)
-                        else:
-                            source_last = source
-                            lists.append(source)
-                        if author == '':
-                            lists.append(author_last)
-                        elif author == ' ':
-                            lists.append('')
-                            author_last = ''
-                        else:
-                            lists.append(author)
-                            author_last = author
-                        lists.append(type_)
-                        if mean != '':
-                            lists.append(str(mean))  # 意思
-                        else:
-                            lists.append(' ')
-                        save(lists)
-            elif choice == '2':
-                keyword = input('关键词：')
-                theme = input('适用主题：')
-                source = input('出处：')
-                author = input('作者：')
-                type_ = input('类型：')
-                Search(lists, keyword, theme, source, author, type_)
-            elif choice == '3':
-                translate()
-            elif choice == '4':
-                is_exit = input('是否退出[y/n] ')
-                if is_exit == 'y':
+                        while True:
+                            print('[system]请选择以下类型\n[1]词语\n[2]句子')
+                            type_ = input('[类型]')
+                            if type_ == '':
+                                print('[system]错误！该项不得为空')
+                            elif type_ == '1':
+                                type_ = '词语'
+                                break
+                            elif type_ == '2':
+                                type_ = '句子'
+                                break
+                            else:
+                                print('[system]错误！没有这个选项')
+                    author = input('[作者]')
+                    mean = input('[意思]')
+                    lists.append(sentence)
+                    if theme == '':
+                        lists.append('')
+                    else:
+                        lists.append(theme)
+                    if source == ' ':
+                        lists.append('')
+                        source_last = ''
+                    elif source == '':
+                        lists.append(source_last)
+                    else:
+                        source_last = source
+                        lists.append(source)
+                    if author == '':
+                        lists.append(author_last)
+                    elif author == ' ':
+                        lists.append('')
+                        author_last = ''
+                    else:
+                        lists.append(author)
+                        author_last = author
+                    lists.append(type_)
+                    if mean != '':
+                        lists.append(str(mean))  # 意思
+                    else:
+                        lists.append(' ')
                     save(lists)
-                    sys.exit()
-            else:
-                print('请重新输入')
-                main('', True)
+        elif choice == '2':
+            keyword = input('关键词：')
+            theme = input('适用主题：')
+            source = input('出处：')
+            author = input('作者：')
+            type_ = input('类型：')
+            Search(lists, keyword, theme, source, author, type_)
+        elif choice == '3':
+            translate()
+        elif choice == '5':
+            is_exit = input('是否退出[y/n] ')
+            if is_exit == 'y':
+                save(lists)
+                sys.exit()
+        elif choice == '4':
+            print('你有'+str(len(sentences))+'个摘录条子')
+            print('你相比上次进步了'+str((len(sentences)-Value)/Value))
+            main('', True)
+        else:
+            print('请重新输入')
+            main('', True)
     except KeyboardInterrupt:
         save(lists)
         print('已退出')
