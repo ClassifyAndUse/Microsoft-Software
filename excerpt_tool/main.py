@@ -179,6 +179,7 @@ def Search(the_list, keyword, theme, source, author, type_):
         if means[id_] != '':
             print('[意思]' + means[id_])
         print('[适用主题]' + themes[id_])
+        main('2', True)
     except IndexError:
         if keyword == '':
             main('', True)
@@ -267,29 +268,6 @@ def main(choice, pass_run):
                 means.append(c)
         Value = len(sentences)
     try:
-        sentences = []
-        themes = []
-        sources = []
-        authors = []
-        types = []
-        means = []
-        time = 0
-        for c in lists:
-            time = time + 1
-            if time == 7:
-                time = 1
-            if time == 1:
-                sentences.append(c)
-            elif time == 2:
-                themes.append(c)
-            elif time == 3:
-                sources.append(c)
-            elif time == 4:
-                authors.append(c)
-            elif time == 5:
-                types.append(c)
-            elif time == 6:
-                means.append(c)
         choice = input('请选择：')
         if choice == '1':
             while True:
@@ -305,7 +283,7 @@ def main(choice, pass_run):
                 if is_input == True:
                     theme = input('[主题]')
                     source = input('[出处]')
-                    if len(sentence) > 10:
+                    if len(sentence) > 8:
                         type_ = '句子'
                     else:
                         while True:
@@ -361,12 +339,15 @@ def main(choice, pass_run):
             translate()
         elif choice == '5':
             is_exit = input('是否退出[y/n] ')
-            if is_exit == 'y':
+            if is_exit == 'y' or is_exit == 'Y':
                 save(lists)
                 sys.exit()
+                input()
+            elif is_exit == 'n' or is_exit == 'N':
+                main('', True)
         elif choice == '4':
             print('你有'+str(len(sentences))+'个摘录条子')
-            print('你相比上次进步了'+str((len(sentences)-Value)/Value))
+            print('你相比上次进步了'+str(round((len(sentences)-Value)/Value),3)*100+'%')
             main('', True)
         else:
             print('请重新输入')
