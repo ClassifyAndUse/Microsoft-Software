@@ -243,6 +243,7 @@ def main(choice, pass_run):
             zhailu = open('./zhailu.cau', 'w')
             zhailu.close()
             lists = loading()
+        global sentences,themes,sources,authors,types,means
         sentences = []
         themes = []
         sources = []
