@@ -226,6 +226,7 @@ def save(the_list):
         zhailu.write('|' + authors[sentences.index(i)])
         zhailu.write('|' + types[sentences.index(i)])
         zhailu.write('|' + means[sentences.index(i)] + '\n')
+        print('added')
     zhailu.close()
 
 
@@ -328,7 +329,7 @@ def main(choice, pass_run):
                         lists.append(str(mean))  # 意思
                     else:
                         lists.append(' ')
-                    save(lists)
+                    save(lists) 1
         elif choice == '2':
             keyword = input('关键词：')
             theme = input('适用主题：')

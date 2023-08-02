@@ -1,8 +1,8 @@
 ﻿#!/usr/bin/env python
 #-*- coding:utf-8 -*-
 
-import os, sys
 import api
+import os, sys
 try:
     from tkinter import *
 except ImportError:  #Python 2.x
@@ -28,7 +28,7 @@ class Application_ui(Frame):
     def __init__(self, master=None):
         Frame.__init__(self, master)
         self.master.title('Form1')
-        self.master.geometry('780x602')
+        self.master.geometry('1009x930')
         self.createWidgets()
 
     def createWidgets(self):
@@ -36,30 +36,34 @@ class Application_ui(Frame):
 
         self.style = Style()
 
-        self.Combo1List = ['句子','词语','笔记']
-        self.Combo1 = Combobox(self.top, values=self.Combo1List, font=('宋体',9))
-        self.Combo1.place(relx=0.041, rely=0.279, relwidth=0.873, relheight=0.033)
-        self.Combo1.set(self.Combo1List[0])
+        self.Text1Var = StringVar(value='文本')
+        self.Text1 = Entry(self.top, text='文本', textvariable=self.Text1Var, font=('宋体',9))
+        self.Text1.place(relx=0.024, rely=0.034, relwidth=0.929, relheight=0.259)
 
-        self.Text1Var = StringVar(value='文字')
-        self.Text1 = Entry(self.top, text='文字', textvariable=self.Text1Var, font=('宋体',9))
-        self.Text1.place(relx=0.041, rely=0.053, relwidth=0.883, relheight=0.188)
-
-        self.style.configure('Command1.TButton',font=('宋体',9))
-        self.Command1 = Button(self.top, text='save', command=self.Command1_Cmd, style='Command1.TButton')
-        self.Command1.place(relx=0.4, rely=0.89, relwidth=0.206, relheight=0.068)
-
-        self.Text2Var = StringVar(value='出处')
-        self.Text2 = Entry(self.top, text='出处', textvariable=self.Text2Var, font=('宋体',9))
-        self.Text2.place(relx=0.041, rely=0.346, relwidth=0.883, relheight=0.042)
+        self.Text2Var = StringVar(value='主题')
+        self.Text2 = Entry(self.top, text='主题', textvariable=self.Text2Var, font=('宋体',9))
+        self.Text2.place(relx=0.024, rely=0.318, relwidth=0.929, relheight=0.053)
 
         self.Text3Var = StringVar(value='作者')
         self.Text3 = Entry(self.top, text='作者', textvariable=self.Text3Var, font=('宋体',9))
-        self.Text3.place(relx=0.041, rely=0.412, relwidth=0.883, relheight=0.068)
+        self.Text3.place(relx=0.024, rely=0.447, relwidth=0.929, relheight=0.061)
 
-        self.Text4Var = StringVar(value='意思')
-        self.Text4 = Entry(self.top, text='意思', textvariable=self.Text4Var, font=('宋体',9))
-        self.Text4.place(relx=0.041, rely=0.505, relwidth=0.894, relheight=0.254)
+        self.Text4Var = StringVar(value='出处')
+        self.Text4 = Entry(self.top, text='出处', textvariable=self.Text4Var, font=('宋体',9))
+        self.Text4.place(relx=0.024, rely=0.378, relwidth=0.929, relheight=0.061)
+
+        self.Combo1List = ['句子','词语','知识笔记']
+        self.Combo1 = Combobox(self.top, values=self.Combo1List, font=('宋体',9))
+        self.Combo1.place(relx=0.024, rely=0.525, relwidth=0.929, relheight=0.022)
+        self.Combo1.set(self.Combo1List[0])
+
+        self.style.configure('Command1.TButton',font=('宋体',9))
+        self.Command1 = Button(self.top, text='Save', command=self.Command1_Cmd, style='Command1.TButton')
+        self.Command1.place(relx=0.357, rely=0.809, relwidth=0.271, relheight=0.096)
+
+        self.Text5Var = StringVar(value='意思')
+        self.Text5 = Entry(self.top, text='意思', textvariable=self.Text5Var, font=('宋体',9))
+        self.Text5.place(relx=0.024, rely=0.559, relwidth=0.929, relheight=0.233)
 
 
 class Application(Application_ui):
@@ -69,8 +73,9 @@ class Application(Application_ui):
 
     def Command1_Cmd(self, event=None):
         #TODO, Please finish the function here!
-        #api.write(self.Text1Var['Text'])
-        print(self.Text1Var['Text'])
+        lists=[self.Text1Var.get(),self.Text2Var.get(),self.Text4Var.get(),self.Text3Var.get(),self.Combo1.get(),self.Text5Var.get()]
+        api.save(lists)
+        print('finish')
         pass
 
 if __name__ == "__main__":
