@@ -145,10 +145,23 @@ class Application(Application_ui):
         #TODO, Please finish the function here!
         global InitList
         a = ''
+        # Forbiding '\n' and backspace
         for i in self.Text1Var.get():
             if i != ' ' and i != '\n':
                 a = a + i
-        lists=[a,self.Text2Var.get(),self.Text4Var.get(),self.Text3Var.get(),self.Combo1.get(),self.Text5Var.get()]
+        for i in self.Text2Var.get():
+            if i != ' ' and i != '\n':
+                b = b + i
+        for i in self.Text4Var.get():
+            if i != ' ' and i != '\n':
+                c = c + i
+        for i in self.Text3Var.get():
+            if i != ' ' and i != '\n':
+                d = d + i
+        for i in self.Text5Var.get():
+            if i != ' ' and i != '\n':
+                e = e + i
+        lists=[a,b,c,d,self.Combo1.get(),e]
         InitList = lists
         save(InitList)
         print('finish')
