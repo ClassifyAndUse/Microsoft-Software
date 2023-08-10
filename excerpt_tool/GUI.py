@@ -82,6 +82,7 @@ class Application(Application_ui):
         pass
 
 if __name__ == "__main__":
+    global text1
     top = Tk()
     Application(top).mainloop()
     try: top.destroy()
