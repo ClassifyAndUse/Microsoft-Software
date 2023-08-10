@@ -36,8 +36,8 @@ class Application_ui(Frame):
 
         self.style = Style()
 
-        self.Text1Font = Font(font=('宋体',9))
-        self.Text1 = Text(self.top, fg='#000000', bg='#FFFFFF', bd=1, relief=SUNKEN, state='normal', wrap=CHAR, takefocus=1, font=self.Text1Font)
+        self.Text1Var = StringVar(value='文本')
+        self.Text1 = Entry(self.top, text='文本', textvariable=self.Text1Var, font=('宋体',9))
         self.Text1.place(relx=0.024, rely=0.034, relwidth=0.929, relheight=0.259)
 
         self.Text2Var = StringVar(value='主题')
@@ -73,16 +73,18 @@ class Application(Application_ui):
 
     def Command1_Cmd(self, event=None):
         #TODO, Please finish the function here!
-        for i in self.Text1.get('0.001','end'):
-            if i != '\n' or i != ' ':
-                text1 = text1 + i
-        lists=[text1,self.Text2Var.get(),self.Text4Var.get(),self.Text3Var.get(),self.Combo1.get(),self.Text5Var.get()]
-        api.save(lists)
+        global InitList
+        a = ''
+        for i in self.Text1Var.get():
+            if i != ' ':
+                a = a + i
+        lists=[a,self.Text2Var.get(),self.Text4Var.get(),self.Text3Var.get(),self.Combo1.get(),self.Text5Var.get()]
+        InitList = lists
+        api.save(InitList)
         print('finish')
         pass
 
 if __name__ == "__main__":
-    global text1
     top = Tk()
     Application(top).mainloop()
     try: top.destroy()
