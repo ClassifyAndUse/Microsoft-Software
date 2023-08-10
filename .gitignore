@@ -13,3 +13,6 @@ zhailu.cau
 /excerpt_tool/main.spec
 /excerpt_tool/dist/
 /main.spec
+build/
+GUI.spec
+dist/
