@@ -73,7 +73,10 @@ class Application(Application_ui):
 
     def Command1_Cmd(self, event=None):
         #TODO, Please finish the function here!
-        lists=[self.Text1.get('0.001','end'),self.Text2Var.get(),self.Text4Var.get(),self.Text3Var.get(),self.Combo1.get(),self.Text5Var.get()]
+        for i in self.Text1.get('0.001','end'):
+            if i != '\n' or i != ' ':
+                text1 = text1 + i
+        lists=[text1,self.Text2Var.get(),self.Text4Var.get(),self.Text3Var.get(),self.Combo1.get(),self.Text5Var.get()]
         api.save(lists)
         print('finish')
         pass
