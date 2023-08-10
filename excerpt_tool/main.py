@@ -226,7 +226,6 @@ def save(the_list):
         zhailu.write('|' + authors[sentences.index(i)])
         zhailu.write('|' + types[sentences.index(i)])
         zhailu.write('|' + means[sentences.index(i)] + '\n')
-        print('added')
     zhailu.close()
 
 
@@ -329,7 +328,7 @@ def main(choice, pass_run):
                         lists.append(str(mean))  # 意思
                     else:
                         lists.append(' ')
-                    save(lists) 1
+                    save(lists)
         elif choice == '2':
             keyword = input('关键词：')
             theme = input('适用主题：')
@@ -363,4 +362,10 @@ def main(choice, pass_run):
 
 
 if __name__ == '__main__':
-    main('', False)
+    try:
+        if sys.argv[1] == 'GUI':
+            os.popen('./GUI.exe')
+        if sys.argv[1] == 'cmd':
+            main('', False)
+    except IndexError:
+        main('', False)
