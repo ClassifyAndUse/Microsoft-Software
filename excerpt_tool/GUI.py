@@ -145,29 +145,37 @@ class Application(Application_ui):
         #TODO, Please finish the function here!
         global InitList
         a = ''
+        b = ''
+        c = ''
+        d = ''
+        e = ''
         # Forbiding '\n' and backspace
         for i in self.Text1Var.get():
             if i != ' ' and i != '\n':
                 a = a + i
-        for i in self.Text2Var.get():
-            if i != ' ' and i != '\n':
-                b = b + i
-        for i in self.Text4Var.get():
-            if i != ' ' and i != '\n':
-                c = c + i
-        for i in self.Text3Var.get():
-            if i != ' ' and i != '\n':
-                d = d + i
-        for i in self.Text5Var.get():
-            if i != ' ' and i != '\n':
-                e = e + i
-        lists=[a,b,c,d,self.Combo1.get(),e]
-        InitList = lists
-        save(InitList)
-        print('finish')
-        pass
+        if a in the_list:
+            print('重复！')
+        else:
+            for i in self.Text2Var.get():
+                if i != ' ' and i != '\n':
+                    b = b + i
+            for i in self.Text4Var.get():
+                if i != ' ' and i != '\n':
+                    c = c + i
+            for i in self.Text3Var.get():
+                if i != ' ' and i != '\n':
+                    d = d + i
+            for i in self.Text5Var.get():
+                if i != ' ' and i != '\n':
+                    e = e + i
+            lists=[a,b,c,d,self.Combo1.get(),e]
+            InitList = lists
+            save(InitList)
+            print('finish')
+            pass
 
 if __name__ == "__main__":
+    the_list = loading()
     top = Tk()
     Application(top).mainloop()
     try: top.destroy()
