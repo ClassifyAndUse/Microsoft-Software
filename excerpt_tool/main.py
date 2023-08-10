@@ -364,7 +364,7 @@ def main(choice, pass_run):
 if __name__ == '__main__':
     try:
         if sys.argv[1] == 'GUI':
-            os.popen('./GUI.exe')
+            os.system('GUI.exe')
         if sys.argv[1] == 'cmd':
             main('', False)
     except IndexError:
