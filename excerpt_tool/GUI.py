@@ -146,7 +146,7 @@ class Application(Application_ui):
         global InitList
         a = ''
         for i in self.Text1Var.get():
-            if i != ' ':
+            if i != ' ' or i != '\n':
                 a = a + i
         lists=[a,self.Text2Var.get(),self.Text4Var.get(),self.Text3Var.get(),self.Combo1.get(),self.Text5Var.get()]
         InitList = lists

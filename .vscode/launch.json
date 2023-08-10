@@ -8,7 +8,7 @@
             "name": "build exe",
             "type": "PowerShell",
             "request": "launch",
-            "script": "pyinstaller --onefile excerpt_tool\\GUI.py excerpt_tool\\api.py",
+            "script": "pyinstaller --onefile excerpt_tool\\GUI.py",
             "cwd": "${cwd}"
         },
         
