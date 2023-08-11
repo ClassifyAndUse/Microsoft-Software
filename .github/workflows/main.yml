@@ -29,7 +29,6 @@ jobs:
           docker run -v $GITHUB_WORKSPACE:/src cdrx/pyinstaller-windows:latest 'pyinstaller -F --clean -y --dist ./ --workpath /tmp ./excerpt_tool/main.py'
           mv ./main.exe ./excerpt_tool.exe
           docker run -v $GITHUB_WORKSPACE:/src cdrx/pyinstaller-windows:latest 'pyinstaller -F --clean -y --dist ./ --workpath /tmp ./excerpt_tool/GUI.py'
-          mv ./main.exe ./GUI.exe
       - name: Create Release and Upload Release Asset
         if: ${{ github.ref == 'refs/heads/main' }}
         uses: softprops/action-gh-release@v1
