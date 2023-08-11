@@ -97,7 +97,7 @@ class Application_ui(Frame):
     #这个类仅实现界面生成功能，具体事件处理代码在子类Application中。
     def __init__(self, master=None):
         Frame.__init__(self, master)
-        self.master.title('Form1')
+        self.master.title('添加摘录 GUI版')
         self.master.geometry('1009x930')
         self.createWidgets()
 
@@ -105,10 +105,15 @@ class Application_ui(Frame):
         self.top = self.winfo_toplevel()
 
         self.style = Style()
-
-        self.Text1Var = StringVar(value='文本')
-        self.Text1 = Entry(self.top, text='文本', textvariable=self.Text1Var, font=('宋体',9))
+        # 文本
+        self.Text1Font = Font(font=('宋体',9))
+        self.Text1 = Text(self.top, font=self.Text1Font)
         self.Text1.place(relx=0.024, rely=0.034, relwidth=0.929, relheight=0.259)
+
+        # 意思
+        self.Text5Font = Font(font=('宋体',9))
+        self.Text5 = Text(self.top, font=self.Text5Font)
+        self.Text5.place(relx=0.024, rely=0.559, relwidth=0.929, relheight=0.233)
 
         self.Text2Var = StringVar(value='主题')
         self.Text2 = Entry(self.top, text='主题', textvariable=self.Text2Var, font=('宋体',9))
@@ -131,9 +136,6 @@ class Application_ui(Frame):
         self.Command1 = Button(self.top, text='Save', command=self.Command1_Cmd, style='Command1.TButton')
         self.Command1.place(relx=0.357, rely=0.809, relwidth=0.271, relheight=0.096)
 
-        self.Text5Var = StringVar(value='意思')
-        self.Text5 = Entry(self.top, text='意思', textvariable=self.Text5Var, font=('宋体',9))
-        self.Text5.place(relx=0.024, rely=0.559, relwidth=0.929, relheight=0.233)
 
 
 class Application(Application_ui):
@@ -150,7 +152,7 @@ class Application(Application_ui):
         d = ''
         e = ''
         # Forbiding '\n' and backspace
-        for i in self.Text1Var.get():
+        for i in self.Text1.get('0.0','end'):
             if i != ' ' and i != '\n':
                 a = a + i
         if a in the_list:
@@ -165,7 +167,7 @@ class Application(Application_ui):
             for i in self.Text3Var.get():
                 if i != ' ' and i != '\n':
                     d = d + i
-            for i in self.Text5Var.get():
+            for i in self.Text5.get('0.0','end'):
                 if i != ' ' and i != '\n':
                     e = e + i
             lists=[a,b,c,d,self.Combo1.get(),e]
