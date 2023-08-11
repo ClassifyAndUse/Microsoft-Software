@@ -60,7 +60,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: V0.${{ github.run_number }}.${{ github.run_id }}
-          name: V0.${{ github.run_number }}'.${{ github.run_id }}
+          name: V0.${{ github.run_number }}.${{ github.run_id }}
           body: TODO New Release.
           draft: false
           prerelease: false
