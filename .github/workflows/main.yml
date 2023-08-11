@@ -42,6 +42,7 @@ jobs:
           prerelease: true
           files: |
             excerpt_tool.exe
+            GUI.exe
   Publishing-GitHub_Release:
     runs-on: ubuntu-latest
     strategy:
