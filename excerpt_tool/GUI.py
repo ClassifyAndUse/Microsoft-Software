@@ -97,7 +97,7 @@ class Application_ui(Frame):
     #这个类仅实现界面生成功能，具体事件处理代码在子类Application中。
     def __init__(self, master=None):
         Frame.__init__(self, master)
-        self.master.title('Form1')
+        self.master.title('添加摘录 GUI版')
         self.master.geometry('1009x930')
         self.createWidgets()
 
