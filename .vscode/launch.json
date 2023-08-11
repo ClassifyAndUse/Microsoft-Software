@@ -5,6 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "build exe",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "pyinstaller --onefile excerpt_tool\\GUI.py",
+            "cwd": "${cwd}"
+        },
+        
+        {
             "name": "PowerShell: Launch Current File",
             "type": "PowerShell",
             "request": "launch",

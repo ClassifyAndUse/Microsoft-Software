@@ -33,7 +33,6 @@ def loading():
             elif time == 6:
                 means.append(c)
     zhailu.close()
-    print('[system]文件加载成功')
     return line
 def save(a):
     the_list = loading() + a
@@ -68,5 +67,4 @@ def save(a):
         zhailu.write('|' + authors[sentences.index(i)])
         zhailu.write('|' + types[sentences.index(i)])
         zhailu.write('|' + means[sentences.index(i)] + '\n')
-        print('added')
     zhailu.close()
