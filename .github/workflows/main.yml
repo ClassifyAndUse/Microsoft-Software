@@ -54,6 +54,7 @@ jobs:
           docker pull cdrx/pyinstaller-windows
           docker run -v $GITHUB_WORKSPACE:/src cdrx/pyinstaller-windows:latest 'pyinstaller -F --clean -y --dist ./ --workpath /tmp ./excerpt_tool/main.py'
           mv ./main.exe ./excerpt_tool.exe
+          docker run -v $GITHUB_WORKSPACE:/src cdrx/pyinstaller-windows:latest 'pyinstaller -F --clean -y --dist ./ --workpath /tmp ./excerpt_tool/GUI.py'
       - name: Create Release and Upload Release Asset
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v1
