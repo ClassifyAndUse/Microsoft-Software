@@ -1,6 +1,8 @@
 # encoding=’gb2312’
+import random
 import sys
 import os
+import time as t
 
 
 def loading():
@@ -232,7 +234,7 @@ def save(the_list):
 def main(choice, pass_run):
     global lists
     if choice == '':
-        print('[system]请选择以下操作\n[1]添加摘录\n[2]搜索摘录\n[3]转换\n[4]我的进步\n[5]退出')
+        print('[system]请选择以下操作\n[1]添加摘录\n[2]搜索摘录\n[3]转换\n[4]我的进步\n[5]随机复习\n[6]退出')
     if pass_run == False:
         global source_last,author_last,Value
         source_last = ''
@@ -338,7 +340,7 @@ def main(choice, pass_run):
             Search(lists, keyword, theme, source, author, type_)
         elif choice == '3':
             translate()
-        elif choice == '5':
+        elif choice == '6':
             is_exit = input('是否退出[y/n] ')
             if is_exit == 'y' or is_exit == 'Y':
                 save(lists)
@@ -351,8 +353,47 @@ def main(choice, pass_run):
             point = round((len(sentences)-Value)/Value,3)
             print('你相比上次进步了'+str(point*100)+'%')
             main('', True)
-        else:
-            print('请重新输入')
+        elif choice == '5':
+            sentences = []
+            themes = []
+            sources = []
+            authors = []
+            types = []
+            means = []
+            time = 0
+            for c in lists:
+                time = time + 1
+                if time == 7:
+                    time = 1
+                if time == 1:
+                    sentences.append(c)
+                elif time == 2:
+                    themes.append(c)
+                elif time == 3:
+                    sources.append(c)
+                elif time == 4:
+                    authors.append(c)
+                elif time == 5:
+                    types.append(c)
+                elif time == 6:
+                    means.append(c)
+            del time
+            print("正在开始随机复习")
+            times = 0
+            while times < 10:
+                id_ = random.randint(0,len(sentences))
+                print('[句子]' + sentences[id_])
+                if '《' in sources[id_] and '》' in sources[id_]:
+                    print('[出处]' + authors[id_] + sources[id_])
+                elif sources[id_] == '':
+                    print('[出处] ' + authors[id_])
+                else:
+                    print('[出处] ' + authors[id_] + '《' + sources[id_] + '》')
+                if means[id_] != '' and means[id_] != ' ':
+                    print('[意思]' + means[id_])
+                print('[适用主题]' + themes[id_] + '\n')
+                t.sleep(3)
+                times  = times + 1
             main('', True)
     except KeyboardInterrupt:
         save(lists)
