@@ -145,7 +145,7 @@ class Application(Application_ui):
 
     def Command1_Cmd(self, event=None):
         #TODO, Please finish the function here!
-        global InitList
+        global InitList,the_list
         a = ''
         b = ''
         c = ''
@@ -172,8 +172,8 @@ class Application(Application_ui):
                     e = e + i
             lists=[a,b,c,d,self.Combo1.get(),e]
             InitList = lists
-            the_list = the_list + lists
             save(InitList)
+            the_list = the_list + InitList
             print('finish')
             pass
 
