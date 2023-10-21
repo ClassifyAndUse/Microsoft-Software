@@ -380,7 +380,7 @@ def main(choice, pass_run):
             del time
             print("正在开始随机复习")
             times = 0
-            while times < 10:
+            for i in range(10):
                 id_ = random.randint(0,len(sentences))
                 print('[句子]' + sentences[id_])
                 if '《' in sources[id_] and '》' in sources[id_]:
@@ -392,8 +392,7 @@ def main(choice, pass_run):
                 if means[id_] != '' and means[id_] != ' ':
                     print('[意思]' + means[id_])
                 print('[适用主题]' + themes[id_] + '\n')
-                t.sleep(3)
-                times  = times + 1
+                input("> 请按下一个Enter键")
             main('', True)
     except KeyboardInterrupt:
         save(lists)
